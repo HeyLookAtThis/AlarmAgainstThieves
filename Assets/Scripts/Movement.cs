@@ -4,40 +4,28 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private float _speed = 3.0f;
-
-    private Animator _animator;
+    private CharacterController _characterController;
+    private Vector3 _playerVelocity;
+    private float _speed = 5.0f;
+    private float _gravitationalForce = -9.81f;
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        _characterController = gameObject.AddComponent<CharacterController>();
+        _characterController.height = 0;
     }
 
     private void Update()
     {
-        int negativeCoefficient = -1;
+        float zAxisDirection = Input.GetAxis("Vertical");
 
-        float forewardRunSpeed = _speed * Time.deltaTime;
-        float backwardRunSpeed = _speed * Time.deltaTime * negativeCoefficient;
+        Vector3 travelDirection = transform.forward * zAxisDirection;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(0, 0, forewardRunSpeed);
-            _animator.SetBool("IsWKeyPressing", true);
-        }
-        else
-        {
-            _animator.SetBool("IsWKeyPressing", false);
-        }
+        _characterController.Move(travelDirection * _speed * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(0, 0, backwardRunSpeed);
-            _animator.SetBool("IsSKeyPressing", true);
-        }
-        else
-        {
-            _animator.SetBool("IsSKeyPressing", false);
-        }
+        _playerVelocity.y += _gravitationalForce * Time.deltaTime;
+
+        _characterController.Move(_playerVelocity *  Time.deltaTime);
     }
+
 }

@@ -1,33 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1101 &-7924466895317512911
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsSKeyPressing
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsWKeyPressing
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -4643674273645121689}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.625
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &-7248749531460838236
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -93,7 +65,6 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 4266412391041338830}
   - {fileID: 8869458209204092434}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
@@ -119,11 +90,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsSKeyPressing
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsWKeyPressing
+  - m_ConditionMode: 4
+    m_ConditionEvent: Vertical
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4643674273645121689}
@@ -147,12 +115,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsWKeyPressing
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsSKeyPressing
-    m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: Vertical
+    m_EventTreshold: 0.01
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6528407679108783595}
   m_Solo: 0
@@ -179,7 +144,6 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -410246432566538060}
-  - {fileID: -7924466895317512911}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -233,24 +197,6 @@ AnimatorController:
   m_Name: PlayerAnimationController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: IsWKeyPressing
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: IsSKeyPressing
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Horizontal
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Vertical
     m_Type: 1
     m_DefaultFloat: 0
@@ -285,34 +231,6 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
---- !u!1101 &4266412391041338830
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsWKeyPressing
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsSKeyPressing
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -258032932437394162}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.625
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &5274250267717440007
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -321,11 +239,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsWKeyPressing
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsSKeyPressing
+  - m_ConditionMode: 3
+    m_ConditionEvent: Vertical
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -258032932437394162}
@@ -349,12 +264,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsSKeyPressing
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsWKeyPressing
-    m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: Vertical
+    m_EventTreshold: -0.01
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6528407679108783595}
   m_Solo: 0
