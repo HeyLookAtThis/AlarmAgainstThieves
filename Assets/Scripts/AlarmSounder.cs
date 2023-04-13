@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AlarmSounder : MonoBehaviour
 {
-    [HideInInspector] private AudioSource _sound;
+    private AudioSource _sound;
     private PlayerTrigger _trigger;
 
     private float _minVolume = 0.0f;
@@ -16,39 +16,23 @@ public class AlarmSounder : MonoBehaviour
         _sound = GetComponent<AudioSource>();
         _trigger = GetComponent<PlayerTrigger>();
         _sound.volume = _minVolume;
+        _sound.Play();
     }
 
     private void Update()
     {
-        if (_trigger.IsInside == true)
-            BeginToPlay();
-        else
-            EndToPlay();
+        float triggerVolume = GetTargetVolume(_trigger.IsInside);
+
+        _sound.volume = ChangeVolume(triggerVolume);
     }
 
-    private void BeginToPlay()
+    private float GetTargetVolume(bool trigger)
     {
-        if (_sound.isPlaying == false)
-            _sound.Play();
-
-        _sound.volume = MakeLouder();
+        return trigger ? _maxVolume : _minVolume;
     }
-
-    private void EndToPlay()
+    
+    private float ChangeVolume(float targetVolume)
     {
-        _sound.volume = MakeQuieter();
-
-        if (_sound.volume == _minVolume)
-            _sound.Stop();
-    }
-
-    private float MakeQuieter()
-    {
-        return Mathf.MoveTowards(_sound.volume, _minVolume, Time.deltaTime);
-    }
-
-    private float MakeLouder()
-    {
-        return Mathf.MoveTowards(_sound.volume, _maxVolume, Time.deltaTime);
+        return Mathf.MoveTowards(_sound.volume, targetVolume, Time.deltaTime);
     }
 }
