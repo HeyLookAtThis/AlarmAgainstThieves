@@ -8,7 +8,6 @@ using UnityEngine;
 public class AlarmSounder : MonoBehaviour
 {
     private AudioSource _sound;
-
     private float _minVolume = 0.0f;
     private float _maxVolume = 1.0f;
 

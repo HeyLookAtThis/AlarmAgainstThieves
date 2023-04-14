@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private const string Vertical = "Vertical";
+
     private CharacterController _characterController;
     private Vector3 _playerVelocity;
     private float _speed = 5.0f;
@@ -17,7 +19,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        float zAxisDirection = Input.GetAxis("Vertical");
+        float zAxisDirection = Input.GetAxis(Vertical);
 
         Vector3 travelDirection = transform.forward * zAxisDirection;
 
