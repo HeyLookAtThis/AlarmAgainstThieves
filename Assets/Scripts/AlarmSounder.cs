@@ -10,6 +10,7 @@ public class AlarmSounder : MonoBehaviour
     private AudioSource _sound;
     private float _minVolume = 0.0f;
     private float _maxVolume = 1.0f;
+    private Coroutine _volumeChanger;
 
     private void Start()
     {
@@ -21,38 +22,60 @@ public class AlarmSounder : MonoBehaviour
     {
         _sound.Play();
 
-        StartCoroutine(ChangeVolume(trigger));
+        StartVolumeChanger(trigger);
     }
 
     public void EndToPlay(bool trigger)
     {
-        StartCoroutine(ChangeVolume(trigger));
+        StartVolumeChanger(trigger);
 
-        if (_sound.volume == _minVolume)
-            _sound.Stop();
+        StartCoroutine(StopSound());
+    }
+
+    private void StartVolumeChanger(bool trigger)
+    {
+        if (_volumeChanger != null)
+            StopCoroutine(_volumeChanger);
+
+        _volumeChanger = StartCoroutine(ChangeVolume(trigger));
     }
 
     private float GetTargetVolume(bool trigger)
     {
         return trigger ? _maxVolume : _minVolume;
-    }    
+    }
 
     private IEnumerator ChangeVolume(bool trigger)
     {
         float waitTime = 0.2f;
         var waitForSeconds = new WaitForSeconds(waitTime);
-
-        float triggerVolume = GetTargetVolume(trigger);
         float volumeChanger = 0.05f;
 
-        for(float i = _sound.volume; i!= triggerVolume;)
+        float targetVolume = GetTargetVolume(trigger);
+
+        while (_sound.volume != targetVolume)
         {
-            _sound.volume = Mathf.MoveTowards(_sound.volume, triggerVolume, volumeChanger);
-
+            _sound.volume = Mathf.MoveTowards(_sound.volume, targetVolume, volumeChanger);
             yield return waitForSeconds;
+        }
 
-            if (_sound.volume == triggerVolume)
+        if (_sound.volume == targetVolume)
+            yield break;
+    }
+
+    private IEnumerator StopSound()
+    {
+        while (_sound.isPlaying)
+        {
+            if (_sound.volume == _minVolume)
+            {
+                _sound.Stop();
                 yield break;
+            }
+            else
+            {
+                yield return null;
+            }
         }
     }
 }
